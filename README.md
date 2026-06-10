@@ -71,5 +71,3 @@ O histórico de commits do projeto foi segmentado seguindo rigorosamente os padr
  * docs: Alterações na documentação e guias do repositório.
 *Desenvolvido para fins acadêmicos. Disciplina de Construção de Frontend e DevOps/SRE · 2026*
 ```
-
-```
