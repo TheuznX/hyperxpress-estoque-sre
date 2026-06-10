@@ -1,0 +1,47 @@
+name: DevOps Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias e Testar Backend
+        working-directory: ./backend
+        run: |
+          npm install
+          npm test
+
+      - name: Testar build do Frontend
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run build
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v3
+
+      - name: Simulacao de Build e Push Docker
+        run: |
+          docker compose build
+          echo "Imagens Docker construidas com sucesso."
+          
+      - name: Simulacao de Deploy e Rollback
+        run: |
+          echo "Publicando imagem mais recente..."
+          echo "Atualizando containers com 'docker compose up -d'"
+          echo "Rollback disponivel revertendo o commit no GitHub Actions."
